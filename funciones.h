@@ -27,43 +27,38 @@ int informacion (int *id2, struct producto prd[]){
         getchar(); //limpia el buffer para permitir ingresar el nombre correctamente
         scanf("%49[^\n]", prd[*id2].nombre);
         if (!validarNombre(prd[*id2].nombre)) {
-            printf("INVALIDO: El nombre %s contiene numeros (El nombre solo puede contener palabras) \n>>> vuelva a intentarlo...\n", prd[*id2].nombre);
+            printf("\nINVALIDO: El nombre %s contiene numeros (El nombre solo puede contener palabras) \n>>> vuelva a intentarlo...\n", prd[*id2].nombre);
         }
     }   while (!validarNombre(prd[*id2].nombre));
     printf("ingrese los recursos necesarios producir el producto: ");
-    scanf("%d", &prd[*id2].recursos);
-    while(prd[*id2].recursos < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
+    while(scanf("%d", &prd[*id2].recursos)!= 1 || prd[*id2].recursos < 0){
+        printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+        while (getchar() != '\n');
         printf("ingrese los recursos necesarios producir el producto: ");
-        scanf("%d", &prd[*id2].recursos);
     }
     printf("ingrese el tiempo de fabricacion del producto: ");
-    scanf("%d", &prd[*id2].tiempo);
-    while(prd[*id2].tiempo < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
+    while(scanf("%d", &prd[*id2].tiempo) != 1 || prd[*id2].tiempo < 0){
+        printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+        while (getchar() != '\n');
         printf("ingrese el tiempo de fabricacion del producto: ");
-        scanf("%d", &prd[*id2].tiempo);
     }
     printf("ingrese la demanda de produccion del producto: ");
-    scanf("%d", &prd[*id2].demanda);
-    while(prd[*id2].demanda < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
+    while(scanf("%d", &prd[*id2].demanda) != 1 || prd[*id2].demanda < 0){
+        printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+        while (getchar() != '\n');
         printf("ingrese la demanda de produccion del producto: ");
-        scanf("%d", &prd[*id2].demanda);
     }
     printf("ingrese el tiempo disponible de produccion: ");
-    scanf("%d", &prd[*id2].tiempoD);
-    while(prd[*id2].tiempoD < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
+    while(scanf("%d", &prd[*id2].tiempoD) != 1 || prd[*id2].tiempoD < 0){
+        printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+        while (getchar() != '\n');
         printf("ingrese el tiempo disponible de produccion: ");
-        scanf("%d", &prd[*id2].tiempoD);
     }
     printf("ingrese los recursos disponibles de produccion: ");
-    scanf("%d", &prd[*id2].recursoD);
-    while(prd[*id2].recursoD < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
+    while(scanf("%d", &prd[*id2].recursoD) != 1 || prd[*id2].recursoD < 0){
+        printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+        while (getchar() != '\n');
         printf("ingrese los recursos disponibles de produccion: ");
-        scanf("%d", &prd[*id2].recursoD);
     }
     //Mas detalles del producto
     printf("=== CALCULO DE DEMANDA ===\n");
@@ -83,66 +78,6 @@ int informacion (int *id2, struct producto prd[]){
         printf("La produccion disponible no cumple con la demanda\n");
     }
     return 0;
-}
-//Esta funcion permite al usuario editar los datos del producto seleccionado...
-void restablecimiento(int *select, int *product, int *id3, struct producto prd[]){
-    switch(*select){
-        case 1:
-        do {
-        printf("Ingrese el nuevo nombre del producto: ");
-        getchar(); //limpia el buffer para permitir ingresar el nombre correctamente
-        scanf("%49[^\n]", prd[*product].nombre);
-        if (!validarNombre(prd[*product].nombre)) {
-            printf("INVALIDO: El nombre %s contiene numeros (El nombre solo puede contener palabras) \n>>> vuelva a intentarlo...\n", prd[*product].nombre);
-        }
-    }   while (!validarNombre(prd[*product].nombre));
-        break;
-        case 2:
-        printf("ingrese nuevos recursos para la fabricacion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].recursos);
-        while(prd[*product].recursos < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
-        printf("ingrese nuevos recursos para la fabricacion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].recursos);
-        }
-        break;
-        case 3:
-        printf("ingrese nuevo tiempo de fabricacion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].tiempo);
-        while(prd[*product].tiempo < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
-        printf("ingrese nuevo tiempo de fabricacion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].tiempo);
-        }
-        break;
-        case 4:
-        printf("ingrese nuevo tiempo disponible de produccion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].tiempoD);
-        while(prd[*product].tiempoD < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
-        printf("ingrese nuevo tiempo disponible de produccion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].tiempoD);
-        }
-        break;
-        case 5:
-        printf("ingrese nuevo recusos disponibles de produccion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].recursoD);
-        while(prd[*product].recursoD < 0){
-        printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
-        printf("ingrese nuevo recusos disponibles de produccion del producto %s: ", prd[*product].nombre);
-        scanf("%d", &prd[*product].recursoD);
-        }
-        break;
-        case 6:
-        printf("Eliminando producto '%s'...\n", prd[*product].nombre);
-        //Envia la informacion completa de     ese producto a una id no     accesible...
-        for (int i = *product; i < *id3 - 1; i++) {
-            prd[i] = prd[i + 1];
-        }
-        *id3--; 
-        printf("se a eliminado correctamente...\n");
-        break;
-    }
 }
 //Esta funcion permite la observacion los calculos de la demanda del producto seleccionado...
 void demandas (int *product2, struct producto prd[]){
