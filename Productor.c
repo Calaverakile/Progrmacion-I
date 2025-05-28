@@ -59,7 +59,56 @@ int main()
                     printf("=== RESTABLECIMIENTO === \n>>> ingrese cualquier 0 para volver \n1) Renombrar \n2) Editar Cantidad \n3) Editar tiempo \n4) Editar recursos disponibles \n5) Editar tiempo disponible \n6) Eliminar \nIngrese su seleccion: ");
                     scanf("%d", &slc2);
                     while (slc2 > 0) {
-                        restablecimiento(&slc2, &slc, &id, &*prd);
+                        switch(slc2){
+                            case 1:
+                            do {
+                            printf("Ingrese el nuevo nombre del producto: ");
+                            getchar(); //limpia el buffer para permitir ingresar el nombre correctamente
+                            scanf("%49[^\n]", prd[slc].nombre);
+                            if (!validarNombre(prd[slc].nombre)) {
+                                printf("INVALIDO: El nombre %s contiene numeros (El nombre solo puede contener palabras) \n>>> vuelva a intentarlo...\n", prd[slc].nombre);
+                                }
+                            }   while (!validarNombre(prd[slc].nombre));
+                            break;
+                            case 2:
+                            printf("ingrese nuevos recursos para la fabricacion del producto %s: ", prd[slc].nombre);
+                            while(scanf("%d", &prd[slc].recursos)!= 1 || prd[slc].recursos < 0 ){
+                                printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+                                while (getchar() != '\n');
+                                printf("ingrese nuevos recursos para la fabricacion del producto %s: ", prd[slc].nombre);
+                            }
+                            break;
+                            case 3:
+                            printf("ingrese nuevo tiempo de fabricacion del producto %s: ", prd[slc].nombre);
+                            while(scanf("%d", &prd[slc].tiempo)!= 1 || prd[slc].tiempo < 0){
+                                printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+                                while (getchar() != '\n');
+                                printf("ingrese nuevo tiempo de fabricacion del producto %s: ", prd[slc].nombre);
+                            }
+                            break;
+                            case 4:
+                            printf("ingrese nuevo tiempo disponible de produccion del producto %s: ", prd[slc].nombre);
+                            while(scanf("%d", &prd[slc].tiempoD) != 1 || prd[slc].tiempoD > 0 ){
+                            printf("\nINVALIDO: no se puede ingresar numeros negativos o decimales \n>>> vuelva a intentarlo\n");
+                            while (getchar() != '\n');
+                            printf("ingrese nuevo tiempo disponible de produccion del producto %s: ", prd[slc].nombre);
+                            }
+                            break;
+                            case 5:
+                            printf("ingrese nuevo recusos disponibles de produccion del producto %s: ", prd[slc].nombre);
+                            while(scanf("%d", &prd[slc].recursoD) != 1 || prd[slc].recursoD < 0){
+                            printf("INVALIDO: no se puede ingresar numeros negativos \n>>> vuelva a intentarlo\n");
+                            printf("ingrese nuevo recusos disponibles de produccion del producto %s: ", prd[slc].nombre);
+                            }
+                            break;
+                            case 6:
+                            printf("Eliminando producto '%s'...\n", prd[slc].nombre);
+                            //Envia la informacion completa de ese producto a una id no accesible...
+                            prd[0].nombre == prd[slc].nombre;
+                            id--; 
+                            printf("se a eliminado correctamente...\n");
+                            break;
+                            }   
                         printf("=== RESTABLECIMIENTO === \n>>> ingrese cualquier 0 para volver \n1) Renombrar \n2) Editar Cantidad \n3) Editar tiempo \n4) Editar recursos disponibles \n5) Editar tiempo disponible \n6) Eliminar \nIngrese su seleccion: ");
                         scanf("%d", &slc2);
                     }
